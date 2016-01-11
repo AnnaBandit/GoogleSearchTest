@@ -24,18 +24,14 @@ public class GoogleSearchTest {
 
         resultLinks.get(0).click();
 
-        $("#header h1 a").shouldHave(exactText("Browser Automation"));
+        headerLinkOnSeleniumPage.shouldHave(exactText("Browser Automation"));
         assertEquals("http://www.seleniumhq.org/", url() );
-
-
-    }
-
-    public void getFirst (ElementsCollection elements){
-        elements.get(0);
+        
     }
 
     SelenideElement searchField = $("#sb_ifc0 input");
     SelenideElement searchButton = $(".lsb");
+    SelenideElement headerLinkOnSeleniumPage = $("#header h1 a");
     ElementsCollection searchResults = $$("#ires .srg .rc");
     ElementsCollection resultLinks = $$(".r>a");
 }
