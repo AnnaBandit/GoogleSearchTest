@@ -19,16 +19,13 @@ public class GoogleSearchTest {
         searchResults.shouldHaveSize(10);
         searchResults.get(0).shouldHave(text("Selenium automates browsers"));
 
-        resultLinks.get(0).click();
+        searchResults.get(0).find(".r>a").click();
 
         headerLinkOnSeleniumPage.shouldHave(exactText("Browser Automation"));
         assertEquals("http://www.seleniumhq.org/", url());
-
     }
 
-    SelenideElement searchField = $("#sb_ifc0 input");
-    SelenideElement searchButton = $(".lsb");
+    SelenideElement searchField = $("#lst-ib");
+    ElementsCollection searchResults = $$(".srg .rc");
     SelenideElement headerLinkOnSeleniumPage = $("#header h1 a");
-    ElementsCollection searchResults = $$("#ires .srg .rc");
-    ElementsCollection resultLinks = $$(".r>a");
 }
