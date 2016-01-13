@@ -1,4 +1,4 @@
-package ua.com.anya.GmailTest_;
+package ua.com.anya.GmailTest;
 
 import com.codeborne.selenide.SelenideElement;
 import org.junit.After;
@@ -16,12 +16,12 @@ import static org.junit.Assert.assertTrue;
 public class GmailTest_ {
 
     @Before
-    public void openGmailPage(){
+    public void openGmailPage() {
         open("http://gmail.com");
     }
 
     @After
-    public void clearTestData(){
+    public void clearTestData() {
         selectAllEmails.click();
         removeButton.click();
     }
@@ -49,44 +49,44 @@ public class GmailTest_ {
     SelenideElement removeButton = $$(".asa").get(2);
     SelenideElement selectAllEmails = $(".T-Jo-auh");
 
-    public void loginToGmail(String userName, String password){
+    public void loginToGmail(String userName, String password) {
         $("#Email").setValue(userName).pressEnter();
         $("#Passwd").setValue(password).pressEnter();
     }
 
-    public void sendEmail(String to, String subject){
+    public void sendEmail(String to, String subject) {
         composeEmail();
         setRecipient(to);
         setSubject(subject);
         sendEmail();
     }
 
-    public void composeEmail(){
+    public void composeEmail() {
         $(byText("COMPOSE")).click();
     }
 
-    public void setRecipient(String to){
+    public void setRecipient(String to) {
         $(By.name("to")).setValue(to).pressEnter();
     }
 
-    public void setSubject(String subject){
+    public void setSubject(String subject) {
         $(By.name("subjectbox")).setValue(subject).pressEnter();
     }
 
-    public void sendEmail(){
+    public void sendEmail() {
         $(byText("Send")).click();
     }
 
-    public void assertNumberOfEmailsFoundByText(String text, int number){
+    public void assertNumberOfEmailsFoundByText(String text, int number) {
         $(By.name("q")).setValue(text).pressEnter();
         assertTrue(number == $$(By.className("Cp")).filterBy(text(text)).size());
     }
 
-    public void assertEmailExists(String text){
+    public void assertEmailExists(String text) {
         $(byText(text)).exists();
     }
 
-    public void checkEmailReceived(){
+    public void checkEmailReceived() {
         inboxWithOneEmailReceived.shouldBe(visible);
     }
 }
