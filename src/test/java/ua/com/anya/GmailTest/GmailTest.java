@@ -21,8 +21,10 @@ public class GmailTest {
 
         gmail.sendEmail(Config.getUserName() + "@gmail.com", emailTitle);
         gmail.refresh();
-        gmail.assertEmailReceived(emailTitle);
-        gmail.assertEmailExistsInSent(emailTitle);
+        gmail.assertEmailExists(emailTitle);
+
+        gmail.openSent();
+        gmail.assertEmailExists(emailTitle);
 
         gmail.openInbox();
         gmail.searchEmail(emailTitle);
