@@ -50,4 +50,8 @@ public class Gmail {
         $(byText("Sent Mail")).click();
         listOfEmails.findBy(exactText(emailTitle)).shouldBe(visible);
     }
+
+    public void openInbox(){
+        $("a[aria-label^='Inbox']").click();
+    }
 }
