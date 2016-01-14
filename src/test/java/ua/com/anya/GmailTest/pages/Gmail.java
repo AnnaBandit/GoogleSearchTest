@@ -4,7 +4,6 @@ import com.codeborne.selenide.ElementsCollection;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.exactText;
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.by;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
@@ -42,16 +41,15 @@ public class Gmail {
         assertEquals(1, $$(listOfEmails.filterBy(exactText(text))).size());
     }
 
-    public void assertEmailReceived(String text) {
+    public void assertEmailExists(String text) {
         listOfEmails.findBy(exactText(text)).exists();
-    }
-
-    public void assertEmailExistsInSent(String emailTitle){
-        $(byText("Sent Mail")).click();
-        listOfEmails.findBy(exactText(emailTitle)).shouldBe(visible);
     }
 
     public void openInbox(){
         $("a[aria-label^='Inbox']").click();
+    }
+
+    public void openSent(){
+        $(byText("Sent Mail")).click();
     }
 }
