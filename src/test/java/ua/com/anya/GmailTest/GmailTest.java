@@ -5,7 +5,6 @@ import ua.com.anya.GmailTest.pages.Gmail;
 import ua.com.anya.GmailTest.testconfigs.Config;
 
 import static com.codeborne.selenide.Configuration.timeout;
-import static com.codeborne.selenide.Selenide.open;
 
 public class GmailTest {
     static {
@@ -17,6 +16,7 @@ public class GmailTest {
 
     @Test
     public void testGmail() {
+
         gmail.login(Config.getUserName(), Config.getPassword());
 
         gmail.sendEmail(Config.getUserName() + "@gmail.com", emailTitle);
@@ -24,8 +24,7 @@ public class GmailTest {
         gmail.assertEmailReceived(emailTitle);
         gmail.assertEmailExistsInSent(emailTitle);
 
-        //что-то никак не получилось локатор подобрать(
-        open("https://mail.google.com/mail/#inbox");
+        gmail.openInbox();
         gmail.searchEmail(emailTitle);
         gmail.assertOnlyOneEmailWithSpecifiedTextIsReceived(emailTitle);
     }
