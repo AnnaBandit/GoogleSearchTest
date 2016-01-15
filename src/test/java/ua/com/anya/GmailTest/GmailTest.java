@@ -1,33 +1,35 @@
 package ua.com.anya.GmailTest;
 
+import com.codeborne.selenide.Configuration;
 import org.junit.Test;
-import ua.com.anya.GmailTest.pages.Gmail;
-import ua.com.anya.GmailTest.testconfigs.Config;
+import ua.com.anya.GmailTest.helpers.Config;
 
-import static com.codeborne.selenide.Configuration.timeout;
+import static ua.com.anya.GmailTest.helpers.Helpers.generateUniqueSubjectWithSetText;
+import static ua.com.anya.GmailTest.pages.Gmail.*;
+import static ua.com.anya.GmailTest.pages.GmailMails.*;
+import static ua.com.anya.GmailTest.pages.GmailMenu.*;
 
 public class GmailTest {
-    static {
-        timeout = 15000;
+    {
+        Configuration.timeout = 15000;
     }
 
-    public String emailTitle = Long.toString(System.currentTimeMillis());
-    Gmail gmail = new Gmail();
+    public String subject = generateUniqueSubjectWithSetText("Subject");
 
     @Test
     public void testGmail() {
+        openGmail();
+        login(Config.getUserName(), Config.getPassword());
 
-        gmail.login(Config.getUserName(), Config.getPassword());
+        sendEmail(Config.getUserName(), subject);
+        refresh();
+        assertEmailExists(subject);
 
-        gmail.sendEmail(Config.getUserName() + "@gmail.com", emailTitle);
-        gmail.refresh();
-        gmail.assertEmailExists(emailTitle);
+        openSent();
+        assertEmailExists(subject);
 
-        gmail.openSent();
-        gmail.assertEmailExists(emailTitle);
-
-        gmail.openInbox();
-        gmail.searchEmail(emailTitle);
-        gmail.assertOnlyOneEmailWithSpecifiedTextIsReceived(emailTitle);
+        openInbox();
+        searchEmailBySubject(subject);
+        assertOnlyOneEmailWithSpecifiedSubjectIsReceived(subject);
     }
 }
