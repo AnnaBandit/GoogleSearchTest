@@ -24,10 +24,6 @@ public class GmailMails {
         $(By.name("q")).setValue("subject:" + subject).pressEnter();
     }
 
-    public static void assertOnlyOneEmailWithSpecifiedSubjectIsReceived(String subject){
-        $$(listOfEmails.filterBy(text(subject))).shouldHaveSize(1);
-    }
-
     public static void assertEmailExists(String subject) {
         listOfEmails.findBy(text(subject)).exists();
     }
