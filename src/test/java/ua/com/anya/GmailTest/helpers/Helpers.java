@@ -1,7 +1,7 @@
 package ua.com.anya.GmailTest.helpers;
 
 public class Helpers {
-    public static String generateUniqueSubjectWithSetText(String text){
-        return text + Long.toString(System.currentTimeMillis());
+    public static String generateUniquePhrase(String prefix){
+        return prefix + Long.toString(System.currentTimeMillis());
     }
 }
