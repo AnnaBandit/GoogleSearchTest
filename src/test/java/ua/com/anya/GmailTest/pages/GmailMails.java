@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
 public class GmailMails {
-    public static ElementsCollection listOfEmails = $$(".UI tr").filter(visible);
+    public static ElementsCollection listOfEmails = $$("[role='main'] .UI tr");
 
     public static void send(String to, String subject) {
         $(byText("COMPOSE")).click();
