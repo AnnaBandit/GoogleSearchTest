@@ -1,12 +1,13 @@
 package ua.com.anya.GmailTest.pages;
 
+import com.codeborne.selenide.Selenide;
+
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
 
 public class Gmail {
 
-    public static void openGmail(){
-        open("http://gmail.com");
+    public static void open(){
+        Selenide.open("http://gmail.com");
     }
 
     public static void login(String userName, String password) {
