@@ -4,15 +4,16 @@ import com.codeborne.selenide.ElementsCollection;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selectors.byTitle;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
 public class GmailMails {
-    private static ElementsCollection listOfEmails = $$(".UI tr");
+    public static ElementsCollection listOfEmails = $$(".UI tr").filter(visible);
 
-    public static void sendEmail(String to, String subject) {
+    public static void send(String to, String subject) {
         $(byText("COMPOSE")).click();
         $(By.name("to")).setValue(to).pressEnter();
         $(By.name("subjectbox")).setValue(subject).pressEnter();
@@ -34,4 +35,5 @@ public class GmailMails {
     public static void refresh(){
         $(byTitle("Refresh")).click();
     }
+
 }
