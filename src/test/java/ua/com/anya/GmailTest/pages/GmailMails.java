@@ -1,35 +1,51 @@
 package ua.com.anya.GmailTest.pages;
 
-import com.codeborne.selenide.ElementsCollection;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selectors.byTitle;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
+import java.util.List;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+import static ua.com.anya.core.CustomConditions.elementExistsInTheList;
+import static ua.com.anya.core.Helpers.assertThat;
 
 public class GmailMails {
-    public static ElementsCollection listOfEmails = $$("[role='main'] .UI tr");
+    @FindBy(css = "[role='main'] .UI tr")
+    public List<WebElement> listOfEmails;
 
-    public static void send(String to, String subject) {
-        $(byText("COMPOSE")).click();
-        $(By.name("to")).setValue(to).pressEnter();
-        $(By.name("subjectbox")).setValue(subject).pressEnter();
-        $(byText("Send")).click();
+    WebDriver driver;
+
+    public GmailMails(WebDriver driver){
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
     }
 
-    public static void searchEmailBySubject(String subject){
-        $(By.name("q")).setValue("subject:" + subject).pressEnter();
+    public void send(String to, String subject) {
+        driver.findElement(By.xpath("//div[contains(text(),'COMPOSE')]")).click();
+        assertThat(visibilityOfElementLocated(By.name("to")), driver);
+        driver.findElement(By.name("to")).sendKeys(to + Keys.ENTER);
+        driver.findElement(By.name("subjectbox")).sendKeys(subject);
+        driver.findElement(By.xpath("//div[contains(text(), 'Send')]")).click();
+        assertThat(visibilityOfElementLocated(By.className("vh")), driver);
     }
 
-    public static void assertEmailExists(String subject) {
-        listOfEmails.findBy(text(subject)).exists();
+    public void searchEmailBySubject(String subject){
+        driver.findElement(By.name("q")).sendKeys("subject:" + subject + Keys.ENTER);
+    }
+    
+    public void assertEmailExists(String subject) {
+        assertThat(elementExistsInTheList(driver.findElement(By.xpath("//div[contains(text(),'" + subject + "')]")), listOfEmails), driver);
     }
 
-    public static void refresh(){
-        $(byTitle("Refresh")).click();
+    public void refresh(){
+    /*    assertThat(ExpectedConditions.visibilityOfElementLocated(By.className("vh")), driver);
+        assertThat(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-tooltip='Refresh']/div")), driver);
+        driver.findElement(By.xpath("//div[@data-tooltip='Refresh']/div")).click();*/
+        driver.navigate().refresh();
     }
 
 }

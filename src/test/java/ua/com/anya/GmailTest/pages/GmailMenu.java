@@ -1,14 +1,21 @@
 package ua.com.anya.GmailTest.pages;
 
-import static com.codeborne.selenide.Selectors.byTitle;
-import static com.codeborne.selenide.Selenide.$;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
 public class GmailMenu {
-    public static void openInbox(){
-        $("a[aria-label^='Inbox']").click();
+
+    WebDriver driver;
+
+    public GmailMenu(WebDriver driver){
+        this.driver = driver;
     }
 
-    public static void openSent(){
-        $(byTitle("Sent Mail")).click();
+    public void openInbox(){
+        driver.findElement(By.cssSelector("a[aria-label^='Inbox']")).click();
+    }
+
+    public void openSent(){
+        driver.findElement(By.cssSelector("a[title='Sent Mail']")).click();
     }
 }
