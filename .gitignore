@@ -2,4 +2,4 @@
 *.iml
 target
 build
-src\test\java\ua\com\anya\GmailTest\Config.java
+/src/main/java/ua/com/anya/helpers

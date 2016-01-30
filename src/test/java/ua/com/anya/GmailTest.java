@@ -1,23 +1,22 @@
-package ua.com.anya.GmailTest;
+package ua.com.anya;
 
 import org.junit.Test;
-import ua.com.anya.GmailTest.helpers.Config;
-import ua.com.anya.GmailTest.pages.Gmail;
-import ua.com.anya.GmailTest.pages.GmailMails;
-import ua.com.anya.GmailTest.pages.GmailMenu;
-import ua.com.anya.GmailTest.testconfigs.BaseTest;
 import ua.com.anya.core.Configuration;
+import ua.com.anya.helpers.Config;
+import ua.com.anya.pages.Gmail;
+import ua.com.anya.pages.GmailMails;
+import ua.com.anya.pages.GmailMenu;
+import ua.com.anya.testconfigs.BaseTest;
 
+import static ua.com.anya.core.CustomConditions.listNthElementHasText;
 import static ua.com.anya.core.CustomConditions.sizeOf;
 import static ua.com.anya.core.Helpers.assertThat;
 import static ua.com.anya.core.Helpers.generateUniquePhrase;
 
-public class GmailTest extends BaseTest{
+public class GmailTest extends BaseTest {
     {
         Configuration.timeout = 4;
     }
-
-    //WebDriverWait wait = new WebDriverWait(driver, 4);
 
     public String subject = generateUniquePhrase("Subject");
 
@@ -33,11 +32,11 @@ public class GmailTest extends BaseTest{
 
         gmailMails.send(Config.getUserName(), subject);
         gmailMails.refresh();
-        gmailMails.assertEmailExists(subject);
+        assertThat(listNthElementHasText(gmailMails.listOfEmails, 0, subject), driver);
+
 
         gmailMenu.openSent();
-        gmailMails.assertEmailExists(subject);
-
+        assertThat(listNthElementHasText(gmailMails.listOfEmails, 0, subject), driver);
         gmailMenu.openInbox();
         gmailMails.searchEmailBySubject(subject);
         assertThat(sizeOf(gmailMails.listOfEmails, 1), driver);

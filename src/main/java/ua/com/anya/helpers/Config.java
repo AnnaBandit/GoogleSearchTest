@@ -1,4 +1,4 @@
-package ua.com.anya.GmailTest.helpers;
+package ua.com.anya.helpers;
 
 public class Config {
     public static String getUserName() {
