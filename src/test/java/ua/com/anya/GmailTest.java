@@ -27,13 +27,11 @@ public class GmailTest extends BaseTest {
     @Test
     public void testGmail() {
         gmail.ensureIsOpened();
-
         gmail.login(Config.getUserName(), Config.getPassword());
 
         gmailMails.send(Config.getUserName(), subject);
         gmailMails.refresh();
         assertThat(listNthElementHasText(gmailMails.listOfEmails, 0, subject), driver);
-
 
         gmailMenu.openSent();
         assertThat(listNthElementHasText(gmailMails.listOfEmails, 0, subject), driver);
