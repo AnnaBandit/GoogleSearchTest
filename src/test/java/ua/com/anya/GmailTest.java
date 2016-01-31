@@ -8,6 +8,7 @@ import ua.com.anya.pages.GmailMails;
 import ua.com.anya.pages.GmailMenu;
 import ua.com.anya.testconfigs.BaseTest;
 
+import static ua.com.anya.core.CustomConditions.listElementHasText;
 import static ua.com.anya.core.CustomConditions.listNthElementHasText;
 import static ua.com.anya.core.CustomConditions.sizeOf;
 import static ua.com.anya.core.Helpers.assertThat;
@@ -32,8 +33,7 @@ public class GmailTest extends BaseTest {
 
         gmailMails.send(Config.getUserName(), subject);
         gmailMails.refresh();
-        assertThat(listNthElementHasText(gmailMails.listOfEmails, 0, subject), driver);
-
+        assertThat(listElementHasText(gmailMails.listOfEmails, subject), driver, 20);
 
         gmailMenu.openSent();
         assertThat(listNthElementHasText(gmailMails.listOfEmails, 0, subject), driver);
