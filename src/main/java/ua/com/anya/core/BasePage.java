@@ -1,10 +1,10 @@
-package ua.com.anya.pages;
+package ua.com.anya.core;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
 public class BasePage {
-    WebDriver driver;
+    public WebDriver driver;
 
     public BasePage(WebDriver driver){
         this.driver = driver;

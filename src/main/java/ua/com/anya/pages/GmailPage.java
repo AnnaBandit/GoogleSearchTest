@@ -5,11 +5,12 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ua.com.anya.core.BasePage;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 import static ua.com.anya.core.Asserts.assertThat;
 
-public class GmailPage extends BasePage{
+public class GmailPage extends BasePage {
 
     @FindBy(id="Email")
     public WebElement loginField;

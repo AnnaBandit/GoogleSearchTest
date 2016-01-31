@@ -5,13 +5,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import ua.com.anya.core.BasePage;
 
 import java.util.List;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 import static ua.com.anya.core.Asserts.assertThat;
 
-public class GmailMailsPage extends BasePage{
+public class GmailMailsPage extends BasePage {
     @FindBy(css = "[role='main'] .UI tr")
     public List<WebElement> list;
 
@@ -36,8 +37,6 @@ public class GmailMailsPage extends BasePage{
     @FindBy(name="q")
     public WebElement searchField;
 
-    public enum MailFolders{INBOX, STARRED, SENT, DRAFTS}
-
     public GmailMailsPage(WebDriver driver){
         super(driver);
     }
@@ -52,8 +51,8 @@ public class GmailMailsPage extends BasePage{
         assertThat(visibilityOf(emailIsSentMessage), driver);
     }
 
-    public void searchEmailBySubject(String subject, MailFolders folder){
-        searchField.sendKeys("in:" + folder + " subject:" + subject + Keys.ENTER);
+    public void searchEmailBySubject(String subject){
+        searchField.sendKeys("subject:" + subject + Keys.ENTER);
     }
 
     public void refresh(){
