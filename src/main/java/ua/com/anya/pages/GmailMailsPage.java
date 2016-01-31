@@ -4,17 +4,16 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
-import static ua.com.anya.core.Helpers.assertThat;
+import static ua.com.anya.core.Asserts.assertThat;
 
-public class GmailMails {
+public class GmailMailsPage extends BasePage{
     @FindBy(css = "[role='main'] .UI tr")
-    public List<WebElement> listOfEmails;
+    public List<WebElement> list;
 
     @FindBy(xpath="//div[contains(text(), 'COMPOSE')]")
     public WebElement composeButton;
@@ -37,14 +36,14 @@ public class GmailMails {
     @FindBy(name="q")
     public WebElement searchField;
 
-    private WebDriver driver;
+    public enum MailFolders{INBOX, STARRED, SENT, DRAFTS}
 
-    public GmailMails(WebDriver driver){
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+    public GmailMailsPage(WebDriver driver){
+        super(driver);
     }
 
     public void send(String to, String subj) {
+        assertThat(visibilityOf(composeButton), driver);
         composeButton.click();
         assertThat(visibilityOf(sendTo), driver);
         sendTo.sendKeys(to + Keys.ENTER);
@@ -53,8 +52,8 @@ public class GmailMails {
         assertThat(visibilityOf(emailIsSentMessage), driver);
     }
 
-    public void searchEmailBySubject(String subject){
-        searchField.sendKeys("subject:" + subject + Keys.ENTER);
+    public void searchEmailBySubject(String subject, MailFolders folder){
+        searchField.sendKeys("in:" + folder + " subject:" + subject + Keys.ENTER);
     }
 
     public void refresh(){

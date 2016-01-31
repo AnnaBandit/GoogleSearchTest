@@ -40,26 +40,4 @@ public class CustomConditions{
             }
         };
     }
-
-    public static ExpectedCondition<Boolean> listElementHasText(final List<WebElement> elements, final String expectedText) {
-        return new ExpectedCondition<Boolean>() {
-            private String actualText;
-            private boolean isPresent = false;
-
-            public Boolean apply(WebDriver driver) {
-                for (int i=0; i<elements.size(); i++){
-                    actualText = elements.get(i).getText();
-                    if (actualText.contains(expectedText)){
-                        isPresent=true;
-                        break;
-                    }
-                }
-                return isPresent;
-            }
-
-            public String toString(){
-                return String.format("No element in the list has text %s", expectedText);
-            }
-        };
-    }
 }

@@ -2,4 +2,4 @@
 *.iml
 target
 build
-/src/main/java/ua/com/anya/helpers
+/src/main/java/ua/com/anya/testData

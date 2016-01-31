@@ -5,12 +5,11 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
-import static ua.com.anya.core.Helpers.assertThat;
+import static ua.com.anya.core.Asserts.assertThat;
 
-public class Gmail {
+public class GmailPage extends BasePage{
 
     @FindBy(id="Email")
     public WebElement loginField;
@@ -21,15 +20,12 @@ public class Gmail {
     @FindBy(xpath="//div[contains(text(), 'COMPOSE')]")
     public WebElement composeButton;
 
-    private WebDriver driver;
-
-    public Gmail(WebDriver driver){
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
+    public GmailPage(WebDriver driver){
+        super(driver);
     }
 
     public void ensureIsOpened(){
-        if (!"Gmail".equals(driver.getTitle())){
+        if (!"GmailPage".equals(driver.getTitle())){
             driver.get("http://gmail.com");
         }
     }
