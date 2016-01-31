@@ -4,7 +4,6 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import ua.com.anya.core.BasePage;
 
 import java.util.List;
@@ -52,11 +51,12 @@ public class GmailMailsPage extends BasePage {
     }
 
     public void searchEmailBySubject(String subject){
+        searchField.clear();
         searchField.sendKeys("subject:" + subject + Keys.ENTER);
     }
 
     public void refresh(){
-        assertThat(ExpectedConditions.visibilityOf(refreshButton), driver);
+        assertThat(visibilityOf(refreshButton), driver);
         refreshButton.click();
     }
 }

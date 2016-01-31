@@ -9,8 +9,8 @@ import ua.com.anya.testData.Authentication;
 import ua.com.anya.testconfigs.BaseTest;
 
 import static ua.com.anya.core.Asserts.assertThat;
+import static ua.com.anya.core.CustomConditions.listContainsExactMails;
 import static ua.com.anya.core.CustomConditions.listNthElementHasText;
-import static ua.com.anya.core.CustomConditions.sizeOf;
 import static ua.com.anya.core.Helpers.generateUniquePhrase;
 
 public class GmailTest extends BaseTest {
@@ -25,7 +25,7 @@ public class GmailTest extends BaseTest {
     GmailMenuPage gmailMenu = new GmailMenuPage(driver);
 
     @Test
-    public void testLogiSendMailAndSearchLetter() {
+    public void testLoginSendMailAndSearchLetter() {
         gmail.ensureIsOpened();
         gmail.login(Authentication.userName, Authentication.password);
 
@@ -36,7 +36,6 @@ public class GmailTest extends BaseTest {
         gmailMenu.openSent();
         assertThat(listNthElementHasText(gmailMails.list, 0, subject), driver);
         gmailMails.searchEmailBySubject(subject);
-        assertThat(sizeOf(gmailMails.list, 1), driver);
-        assertThat(listNthElementHasText(gmailMails.list, 0, subject), driver);
+        assertThat(listContainsExactMails(gmailMails.list, subject), driver);
     }
 }

@@ -1,6 +1,7 @@
 package ua.com.anya.core;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
 import java.util.List;
@@ -37,6 +38,34 @@ public class CustomConditions{
 
             public String toString(){
                 return String.format("Actual size of the list is %s,\nexpected size is %s", listSize, expectedSize);
+            }
+        };
+    }
+
+    public static ExpectedCondition<Boolean> listContainsExactMails(final List<WebElement> elements, final String... texts) {
+        return new ExpectedCondition<Boolean>() {
+            private int listSize;
+
+            public Boolean apply(WebDriver driver) {
+                listSize = elements.size();
+                if (listSize!=texts.length){
+                    return false;
+                }
+                else {
+                    for (int i = 0; i < elements.size(); i++) {
+                        WebElement element = elements.get(i);
+                        String text = texts[i];
+                        if (!element.getText().contains(text)) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+
+            }
+
+            public String toString(){
+                return String.format("Expected and actual texts don't match.");
             }
         };
     }
