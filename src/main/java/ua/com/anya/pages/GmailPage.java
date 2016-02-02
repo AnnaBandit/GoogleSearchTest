@@ -33,8 +33,7 @@ public class GmailPage extends BasePage {
 
     public void login(String userName, String password) {
         loginField.sendKeys(userName + Keys.ENTER);
-        assertThat(visibilityOf(passwordField), driver);
-        passwordField.sendKeys(password + Keys.ENTER);
+        assertThat(visibilityOf(passwordField), driver).sendKeys(password + Keys.ENTER);
         assertThat(visibilityOf(composeButton), driver, 10);
     }
 }

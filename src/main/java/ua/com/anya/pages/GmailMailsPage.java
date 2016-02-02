@@ -15,6 +15,9 @@ public class GmailMailsPage extends BasePage {
     @FindBy(css = "[role='main'] .UI tr")
     public List<WebElement> list;
 
+    @FindBy(css = "[role='main'] .UI tr .y6")
+    public List<WebElement> listOfSubjectsWithStartOfTheLetter;
+
     @FindBy(xpath="//div[contains(text(), 'COMPOSE')]")
     public WebElement composeButton;
 
@@ -41,10 +44,8 @@ public class GmailMailsPage extends BasePage {
     }
 
     public void send(String to, String subj) {
-        assertThat(visibilityOf(composeButton), driver);
-        composeButton.click();
-        assertThat(visibilityOf(sendTo), driver);
-        sendTo.sendKeys(to + Keys.ENTER);
+        assertThat(visibilityOf(composeButton), driver).click();
+        assertThat(visibilityOf(sendTo), driver).sendKeys(to + Keys.ENTER);
         subject.sendKeys(subj);
         sendButton.click();
         assertThat(visibilityOf(emailIsSentMessage), driver);
@@ -56,7 +57,6 @@ public class GmailMailsPage extends BasePage {
     }
 
     public void refresh(){
-        assertThat(visibilityOf(refreshButton), driver);
-        refreshButton.click();
+        assertThat(visibilityOf(refreshButton), driver).click();
     }
 }
