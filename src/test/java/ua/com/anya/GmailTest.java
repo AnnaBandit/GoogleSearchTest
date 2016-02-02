@@ -8,6 +8,7 @@ import ua.com.anya.pages.GmailPage;
 import ua.com.anya.testData.Authentication;
 import ua.com.anya.testconfigs.BaseTest;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 import static ua.com.anya.core.Asserts.assertThat;
 import static ua.com.anya.core.CustomConditions.listNthElementHasText;
 import static ua.com.anya.core.CustomConditions.textsOf;
@@ -30,12 +31,13 @@ public class GmailTest extends BaseTest {
         gmail.login(Authentication.userName, Authentication.password);
 
         gmailMails.send(Authentication.userName, subject);
+        assertThat(visibilityOf(gmailMails.emailIsSentMessage), driver);
         gmailMails.refresh();
         assertThat(listNthElementHasText(gmailMails.list, 0, subject), driver);
 
         gmailMenu.openSent();
         assertThat(listNthElementHasText(gmailMails.list, 0, subject), driver);
         gmailMails.searchEmailBySubject(subject);
-        assertThat(textsOf(gmailMails.listOfSubjectsWithStartOfTheLetter, subject), driver);
+        assertThat(textsOf(gmailMails.list, subject), driver);
     }
 }

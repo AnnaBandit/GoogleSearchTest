@@ -13,4 +13,5 @@ public class Asserts <T> {
     public static <T> T assertThat(ExpectedCondition<T> condition, WebDriver driver, int timeout){
         return new WebDriverWait(driver, timeout).until(condition);
     }
+
 }
