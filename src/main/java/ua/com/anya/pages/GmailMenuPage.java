@@ -1,10 +1,10 @@
 package ua.com.anya.pages;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import ua.com.anya.core.BasePage;
 
-import static ua.com.anya.core.WebElements.$;
+import static ua.com.anya.core.SeleniumHelpers.$;
+import static ua.com.anya.core.SeleniumHelpers.byCss;
 
 public class GmailMenuPage extends BasePage {
 
@@ -13,12 +13,10 @@ public class GmailMenuPage extends BasePage {
     }
 
     public void openInbox(){
-        WebElement inbox = $("a[aria-label^='Inbox']", driver);
-        inbox.click();
+        $(byCss("a[aria-label^='Inbox']"), driver).click();
     }
 
     public void openSent(){
-        WebElement sent = $("a[title='Sent Mail']", driver);
-        sent.click();
+        $(byCss("a[title='Sent Mail']"), driver).click();
     }
 }

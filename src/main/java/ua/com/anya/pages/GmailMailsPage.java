@@ -1,58 +1,34 @@
 package ua.com.anya.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import ua.com.anya.core.BasePage;
 
-import java.util.List;
-
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
-import static ua.com.anya.core.Asserts.assertThat;
+import static ua.com.anya.core.SeleniumHelpers.$;
+import static ua.com.anya.core.SeleniumHelpers.byCss;
 
 public class GmailMailsPage extends BasePage {
-    @FindBy(css = "[role='main'] .UI tr")
-    public List<WebElement> list;
-
-    @FindBy(xpath="//div[contains(text(), 'COMPOSE')]")
-    public WebElement composeButton;
-
-    @FindBy(name="to")
-    public WebElement sendTo;
-
-    @FindBy(name="subjectbox")
-    public WebElement subject;
-
-    @FindBy(xpath="//div[contains(text(), 'Send')]")
-    public WebElement sendButton;
-
-    @FindBy(className="vh")
-    public WebElement emailIsSentMessage;
-
-    @FindBy(xpath=".//*[@title=\"Refresh\"]")
-    public WebElement refreshButton;
-
-    @FindBy(name="q")
-    public WebElement searchField;
+    public By list = byCss("[role='main'] .UI tr");
+    public By emailIsSentMessage = By.className("vh");
 
     public GmailMailsPage(WebDriver driver){
         super(driver);
     }
 
     public void send(String to, String subj) {
-        assertThat(visibilityOf(composeButton), driver, 10).click();
-        assertThat(visibilityOf(sendTo), driver).sendKeys(to + Keys.ENTER);
-        subject.sendKeys(subj);
-        sendButton.click();
+        $(By.xpath("//div[contains(text(), 'COMPOSE')]"), driver).click();
+        $(By.name("to"), driver).sendKeys(to + Keys.ENTER);
+        $(By.name("subjectbox"), driver).sendKeys(subj);
+        $(By.xpath("//div[contains(text(), 'Send')]"), driver).click();
     }
 
-    public void searchEmailBySubject(String subject){
-        searchField.clear();
-        searchField.sendKeys("subject:" + subject + Keys.ENTER);
+    public void searchBySubject(String subject){
+        $(By.name("q"), driver).clear();
+        $(By.name("q"), driver).sendKeys("subject:" + subject + Keys.ENTER);
     }
 
     public void refresh(){
-        assertThat(visibilityOf(refreshButton), driver).click();
+        $(By.xpath(".//*[@title=\"Refresh\"]"), driver).click();
     }
 }
